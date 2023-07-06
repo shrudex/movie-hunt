@@ -260,6 +260,21 @@ body {
 }
   
 
+.rating{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px white solid;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 39px;
+  font-family: 'Inter';
+
+}
+
+
   @media (max-width: 768px) {
     .nav-bar {
       grid-template-columns: 1fr;

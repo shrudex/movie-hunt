@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 export default function Box({movies}){
+  
     const [open, isOpen] = useState(true);
     return <div className="box">
         <button className="btnToggle" onClick={()=>isOpen((open) => !(open))}
