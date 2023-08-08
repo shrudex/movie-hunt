@@ -64,8 +64,8 @@ function App() {
   const [watched, setWatched] = useState(watchedData);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [searchData, setSearchData] = useState("");
+  const [error, setError] = useState(" ");
+  const [searchData, setSearchData] = useState("inception");
 
   //data fetching from API
   useEffect(
@@ -73,7 +73,7 @@ function App() {
       async function fetchMovies() {
         try {
           setIsLoading(true);
-          setError("");
+          setError(" ");
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${key}&s=${searchData}`
           );

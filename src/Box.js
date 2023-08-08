@@ -6,7 +6,7 @@ export default function Box({ movies, isLoading, error }) {
     <div className="box">
       {isLoading ? (
         <Loader />
-      ) : error ? (
+      ) : error===" " ? (
         <>
           <button className="btnToggle" onClick={() => isOpen((open) => !open)}>
             {open === true ? "-" : "+"}{" "}
