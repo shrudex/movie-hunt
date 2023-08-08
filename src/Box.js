@@ -1,14 +1,18 @@
-import { useState } from "react"
+import { useState } from "react";
 
-export default function Box({movies}){
-  
-    const [open, isOpen] = useState(true);
-    return <div className="box">
-        <button className="btnToggle" onClick={()=>isOpen((open) => !(open))}
-        >
-          {open===true?"-":"+"} </button>
+export default function Box({ movies, isLoading, error }) {
+  const [open, isOpen] = useState(true);
+  return (
+    <div className="box">
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <>
+          <button className="btnToggle" onClick={() => isOpen((open) => !open)}>
+            {open === true ? "-" : "+"}{" "}
+          </button>
 
-        {(open===true) && (
+          {open === true && (
             <ul className="list">
               {movies?.map((movie) => (
                 <li key={movie.imdbID}>
@@ -24,5 +28,21 @@ export default function Box({movies}){
               ))}
             </ul>
           )}
+        </>) : (<ErrorMessage message={"Something went wrong with fetching movies"}/>)
+      }
     </div>
+  );
+}
+
+function Loader() {
+  return <p className="loader">Loading⏳...</p>;
+}
+
+function ErrorMessage({ message }) {
+  return (
+    <p className="error">
+      <span>😵</span>
+      {message}
+    </p>
+  );
 }

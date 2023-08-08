@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar";
 import Box from "./Box";
 import Box2 from "./Box2";
 import StarRating from "./StarRating";
-
-const key = "7793f8ae";
 
 function App() {
   const movieData = [
@@ -60,49 +58,10 @@ function App() {
     },
   ];
 
-  const [movies, setMovies] = useState(movieData);
+  const [movies, setMovies] = useState([movieData]);
   const [watched, setWatched] = useState(watchedData);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [searchData, setSearchData] = useState("");
-
-  //data fetching from API
-  useEffect(
-    function () {
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-          setError("");
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${key}&s=${searchData}`
-          );
-
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-          const data = await res.json();
-
-          //if no response from API, handle errors
-          if (data.Response === "False") throw new Error("Movie not found.");
-
-          setMovies(data.Search);
-          setIsLoading(false);
-        } catch (err) {
-          setError(err.message);
-        }
-      }
-
-      if (searchData.length<3) {
-        setMovies([]);
-        setError(" ");
-        return;
-      }
-
-      fetchMovies();
-    },
-    [searchData]
-  );
-
   return (
     <div className="App">
       <Navbar
@@ -111,10 +70,10 @@ function App() {
         movies={movies}
       />
       <main className="main">
-        <Box movies={movies} isLoading={isLoading} error={error} />
+        <Box movies={movies} />
         <Box2 movies={movies} watched={watched} />
       </main>
-      <div className="rating" style={{ display: "none" }}>
+      <div className="rating">
         <div style={{ backgroundColor: "white" }} className="bg">
           <StarRating maxRating={10} />
           <StarRating maxRating={5} />
@@ -124,14 +83,9 @@ function App() {
           <StarRating maxRating={12} color="pink" size="39" defaultRating={1} />
           <StarRating maxRating={12} color="pink" size="39" defaultRating={3} />
           <StarRating maxRating={12} color="pink" size="39" defaultRating={3} />
+          <StarRating maxRating={2} color="pink" size="39" messages={['shubh', 'ishita']}/>
           <StarRating
-            maxRating={2}
-            color="pink"
-            size="39"
-            messages={["shubh", "ishita"]}
-          />
-          <StarRating
-            size={38}
+          size={38}
             maxRating={5}
             messages={["Terrible", "Bad", "Okay", "Good", "Excellent"]}
           />
